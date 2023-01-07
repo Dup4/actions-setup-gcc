@@ -40,3 +40,8 @@ jobs:
           which g++
           gcc --version
           g++ --version
+
+          which cc
+          cc --version
+          which c++
+          c++ --version
