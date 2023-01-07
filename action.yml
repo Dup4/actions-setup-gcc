@@ -31,7 +31,7 @@ runs:
 
     - name: Install GCC For Ubuntu
       shell: bash
-      if: runner.os == "ubuntu"
+      if: runner.os == 'ubuntu'
       run: |
         sudo apt update
         sudo apt install -y \
@@ -40,7 +40,7 @@ runs:
 
     - name: Install GCC For macOS
       shell: bash
-      if: runner.os == "macos"
+      if: runner.os == 'macos'
       run: |
         brew install gcc@${{ env.GCC_VERSION }}
 
