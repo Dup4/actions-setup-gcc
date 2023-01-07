@@ -1,0 +1,69 @@
+name: Setup GCC
+description: Setup GCC
+
+inputs:
+  version:
+    description: GCC version to install
+    required: false
+    default: latest
+  cc:
+    description: Set up cc/gcc/c++/g++ executables
+    required: false
+    default: "true"
+  env:
+    description: Set up CC/CXX environment variables
+    required: false
+    default: "true"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup GCC VERSION
+      shell: bash
+      run: |
+        GCC_VERSION="${{ inputs.version }}"
+
+        if [[ "${GCC_VERSION}" == "latest" ]]; then
+          GCC_VERSION="12"
+        fi
+
+        echo "GCC_VERSION=${GCC_VERSION}" >> $GITHUB_ENV
+
+    - name: Install GCC For Ubuntu
+      shell: bash
+      if: runner.os == "ubuntu"
+      run: |
+        sudo apt update
+        sudo apt install -y \
+          gcc-${{ env.GCC_VERSION }} \
+          g++-${{ env.GCC_VERSION }}
+
+    - name: Install GCC For macOS
+      shell: bash
+      if: runner.os == "macos"
+      run: |
+        brew install gcc@${{ env.GCC_VERSION }}
+
+    - name: Set CC And Env
+      shell: bash
+      run: |
+        if [[ "${{ inputs.cc }}" == "true" ]]; then
+          rm -f /usr/local/bin/cc
+          rm -f /usr/local/bin/c++
+          rm -f /usr/local/bin/gcc
+          rm -f /usr/local/bin/g++
+
+          ln -s $(which gcc-${{ env.GCC_VERSION }}) /usr/local/bin/cc
+          ln -s $(which gcc-${{ env.GCC_VERSION }}) /usr/local/bin/gcc
+          ln -s $(which g++-${{ env.GCC_VERSION }}) /usr/local/bin/c++
+          ln -s $(which g++-${{ env.GCC_VERSION }}) /usr/local/bin/g++
+        fi
+
+        if [[ "${{ inputs.env }}" == "true" ]]; then
+          echo "CC=gcc-${{ env.GCC_VERSION }}" >>$GITHUB_ENV
+          echo "CXX=gcc-${{ env.GCC_VERSION }}" >>$GITHUB_ENV
+        fi
+
+branding:
+  icon: "box"
+  color: "green"
