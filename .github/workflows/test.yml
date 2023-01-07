@@ -45,3 +45,6 @@ jobs:
           cc --version
           which c++
           c++ --version
+
+          which gcov
+          gcov --version
