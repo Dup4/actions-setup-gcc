@@ -48,5 +48,5 @@ jobs:
           which gcov
           gcov --version
 
-          which gcov-${{ matrix.version }}
-          gcov-${{ matrix.version }} --version
+          which $GCOV
+          $GCOV --version

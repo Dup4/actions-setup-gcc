@@ -7,11 +7,11 @@ inputs:
     required: false
     default: latest
   cc:
-    description: Set up cc/gcc/c++/g++ executables
+    description: Set up cc/gcc/c++/g++/gcov executables
     required: false
     default: "true"
   env:
-    description: Set up CC/CXX environment variables
+    description: Set up CC/CXX/GCOV environment variables
     required: false
     default: "true"
 
@@ -50,16 +50,19 @@ runs:
         if [[ "${{ inputs.cc }}" == "true" ]]; then
           GCC_PATH=$(which gcc-${{ env.GCC_VERSION }})
           GXX_PATH=$(which g++-${{ env.GCC_VERSION }})
+          GCOV_PATH=$(which gcov-${{ env.GCOV_VERSION }})
 
           ln -sf "${GCC_PATH}" /usr/local/bin/cc
           ln -sf "${GCC_PATH}" /usr/local/bin/gcc
           ln -sf "${GXX_PATH}" /usr/local/bin/c++
           ln -sf "${GXX_PATH}" /usr/local/bin/g++
+          ln -sf "${GCOV_PATH}" /usr/local/bin/gcov
         fi
 
         if [[ "${{ inputs.env }}" == "true" ]]; then
           echo "CC=gcc-${{ env.GCC_VERSION }}" >>$GITHUB_ENV
-          echo "CXX=gcc-${{ env.GCC_VERSION }}" >>$GITHUB_ENV
+          echo "CXX=g++-${{ env.GCC_VERSION }}" >>$GITHUB_ENV
+          echo "GCOV=gcov-${{ env.GCC_VERSION }}" >>$GITHUB_ENV
         fi
 
 branding:
