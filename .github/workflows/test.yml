@@ -27,7 +27,6 @@ jobs:
         uses: ./
         with:
           version: "${{ matrix.version }}"
-          cc: 1
 
       - name: Test
         run: |

@@ -48,18 +48,13 @@ runs:
       shell: bash
       run: |
         if [[ "${{ inputs.cc }}" == "true" ]]; then
-          rm -f /usr/bin/cc
-          rm -f /usr/bin/c++
-          rm -f /usr/bin/gcc
-          rm -f /usr/bin/g++
-
           GCC_PATH=$(which gcc-${{ env.GCC_VERSION }})
-          GXX_PATH=$(which g++-${{ env.GXX_VERSION }})
+          GXX_PATH=$(which g++-${{ env.GCC_VERSION }})
 
-          ln -s "${GCC_PATH}" /usr/bin/cc
-          ln -s "${GCC_PATH}" /usr/bin/gcc
-          ln -s "${GXX_PATH}" /usr/bin/c++
-          ln -s "${GXX_PATH}" /usr/bin/g++
+          ln -sf "${GCC_PATH}" /usr/local/bin/cc
+          ln -sf "${GCC_PATH}" /usr/local/bin/gcc
+          ln -sf "${GXX_PATH}" /usr/local/bin/c++
+          ln -sf "${GXX_PATH}" /usr/local/bin/g++
         fi
 
         if [[ "${{ inputs.env }}" == "true" ]]; then
