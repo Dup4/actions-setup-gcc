@@ -6,18 +6,19 @@ on:
   pull_request:
 
 jobs:
-  ubuntu:
+  test:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os:
+          - ubuntu-latest
+          - macos-latest
         version:
           - 11
           - 12
           - latest
 
     runs-on: "${{ matrix.os }}"
-    name: "Test: ${{ matrix.os }}"
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -30,6 +31,11 @@ jobs:
 
       - name: Test
         run: |
+          which $CC
+          which $CXX
+          $CC --version
+          $CXX --version
+
           which gcc
           which g++
           gcc --version
