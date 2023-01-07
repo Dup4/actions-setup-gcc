@@ -50,7 +50,7 @@ runs:
         if [[ "${{ inputs.cc }}" == "true" ]]; then
           GCC_PATH=$(which gcc-${{ env.GCC_VERSION }})
           GXX_PATH=$(which g++-${{ env.GCC_VERSION }})
-          GCOV_PATH=$(which gcov-${{ env.GCOV_VERSION }})
+          GCOV_PATH=$(which gcov-${{ env.GCC_VERSION }})
 
           ln -sf "${GCC_PATH}" /usr/local/bin/cc
           ln -sf "${GCC_PATH}" /usr/local/bin/gcc
