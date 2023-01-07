@@ -2,6 +2,10 @@
 
 [![Test](https://github.com/Dup4/actions-setup-gcc/actions/workflows/test.yml/badge.svg)](https://github.com/Dup4/actions-setup-gcc/actions/workflows/test.yml)
 
+This GitHub action sets up GCC in your workflow run.
+
+* Support Ubuntu and macOS.
+* Specify a version to install using the version parameter.
 
 ## Usage
 
