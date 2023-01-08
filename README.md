@@ -12,7 +12,7 @@ This GitHub action sets up GCC in your workflow run.
 Use it in your workflow like this:
 
 ```yaml
-- name: Set up GCC
+- name: Setup GCC
     uses: Dup4/actions-setup-gcc@v1
     with:
     version: latest
